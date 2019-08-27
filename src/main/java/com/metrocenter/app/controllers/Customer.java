@@ -1,8 +1,15 @@
 package com.metrocenter.app.controllers;
 
 public class Customer {
-	public String name;
-	public String email;
+	private String name;
+	private String email;
+	private String password;
+	
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 	
 	public String getName() {
 		return name;
