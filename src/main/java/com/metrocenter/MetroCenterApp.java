@@ -1,4 +1,4 @@
-package com.metrocenter.app;
+package com.metrocenter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
