@@ -17,6 +17,7 @@ public class InMemoryCustomerRepository {
 		Customer c3 = new Customer("Jeffff", "jeff3@jeff.com", "password");
 		Customer c4 = new Customer("Jefffff", "jeff4@jeff.com", "password");
 		Customer c5 = new Customer("Jeffffff", "jeff5@jeff.com", "password");
+		customers = new ArrayList<Customer>();
 		customers.add(c1);
 		customers.add(c2);
 		customers.add(c3);
