@@ -3,7 +3,6 @@ package com.metrocenter.api;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,7 @@ public class CustomerAPI
 {
 
 	@Autowired
-	private CustomersRepository repo;
+	CustomersRepository repo;
 
 	@GetMapping
 	public Iterable<Customer> getAll()
@@ -35,34 +34,43 @@ public class CustomerAPI
 	}
 
 	@GetMapping("/{fname}")
-	public Customer getCustomer(@PathVariable("fname") long firstName)
+
+	public Customer getCustomerByName(@PathVariable("fname") String firstName)
 	{
 		// TODO return the request
-		return(null);
-		/* return repo.findById(firstName); */
+		return repo.findById(1l).orElse(null);
+
 	}
 
+//	@GetMapping("/{id}")
+//	public Customer getCustomerById(@PathVariable("id") long id)
+//	{
+//		// TODO return the request
+//		return repo.findOne(id);
+//	}
+	
 	@PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri)
+	{
+		if (newCustomer.getId()!=0 || newCustomer.getName() == null || newCustomer.getEmail() == null)
+		{
+			return ResponseEntity.badRequest().build();
+		}
+		newCustomer = repo.save(newCustomer);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newCustomer.getId()).toUri();
+		ResponseEntity<?> response = ResponseEntity.created(location).build();
+		return response;
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("id") Long id)
 	{
 		if (newCustomer.getName() == null || newCustomer.getEmail() == null)
 		{
 			return ResponseEntity.badRequest().build();
 		}
-		newCustomer = repo.save(newCustomer);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fname}")
-				.buildAndExpand(newCustomer.getName()).toUri();
-		ResponseEntity<?> response = ResponseEntity.created(location).build();
-		return response;
-	}
-
-	@PutMapping("/{fname}")
-	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("fname") String firstName)
-	{
-		if (newCustomer.getName() == firstName || newCustomer.getName() == null || newCustomer.getName() == null)
-		{
-			return ResponseEntity.badRequest().build();
-		}
+		newCustomer.setId(id);
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
 	}
