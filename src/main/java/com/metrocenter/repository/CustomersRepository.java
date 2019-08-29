@@ -8,6 +8,8 @@ import com.metrocenter.domain.Customer;
 
 public interface CustomersRepository extends CrudRepository<Customer, Long> {
 	
+	 public Customer findByName(String name);
+		 
 	 
 	
 }

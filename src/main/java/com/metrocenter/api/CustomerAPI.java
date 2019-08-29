@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public class CustomerAPI
 	public Customer getCustomerByName(@PathVariable("fname") String firstName)
 	{
 		// TODO return the request
-		return repo.findById(1l).orElse(null);
+		return repo.findByName(firstName);
 
 	}
 
@@ -63,20 +64,30 @@ public class CustomerAPI
 		return response;
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{fname}")
 
-	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("id") long id)
+	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("fname") String fName)
 
 	{
-		if (newCustomer.getName() == null || newCustomer.getEmail() == null)
+		Customer c = repo.findByName(fName);
+		if (newCustomer.getName() == null || c  == null)
 		{
-			return ResponseEntity.badRequest().build();
+			c = repo.save(newCustomer);
+		}else {
+			c.setName(newCustomer.getName());
+				c = repo.save(c);
 		}
-		newCustomer.setId(id);
-		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
 	}
-
+	
+	 @DeleteMapping("/{fname}")
+	  public ResponseEntity<?> deleteCustomer(@PathVariable ("fname")String fName) {
+		
+			Customer C = repo.findByName(fName);
+		           repo.deleteById(C.getId());
+			return ResponseEntity.ok().build();
+	       
+	    }
 //	@RequestMapping("/{fname}/{lname}")
 //	public Customer getCustomer(@PathVariable("fname") String firstName,
 //							@PathVariable("lname") String lastName) {
