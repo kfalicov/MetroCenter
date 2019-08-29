@@ -1,21 +1,23 @@
 package com.metrocenter.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="CUSTOMERS")
 public class Customer {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	long id;
+	
+	@Column(name="CUSTOMER_NAME")
 	private String name;
+	
 	private String email;
-	private String password;
-	
-	public Customer() {
-		name="empty";
-		email="empty";
-		password="empty";
-	}
-	
-	public Customer(String name, String email, String password) {
-		this.name = name;
-		this.email = email;
-		this.password=password;
-	}
 	
 	public String getName() {
 		return name;
@@ -28,16 +30,6 @@ public class Customer {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword()
-	{
-		return password;
-	}
-
-	public void setPassword(String password)
-	{
-		this.password = password;
 	}
 	
 }

@@ -3,7 +3,6 @@ package com.metrocenter.api;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,23 +23,30 @@ public class CustomerAPI
 {
 
 	@Autowired
-	private CustomersRepository repo;
+	CustomersRepository repo;
 
 	@GetMapping
 	public Iterable<Customer> getAll()
 	{
 		// TODO return the request
 		//
-		return repo.getAll();
+		return repo.findAll();
 	}
 
 	@GetMapping("/{fname}")
-	public Customer getCustomer(@PathVariable("fname") String firstName)
+	public Customer getCustomerByName(@PathVariable("fname") String firstName)
 	{
 		// TODO return the request
-		return repo.getCustomerByName(firstName);
+		return repo.findById(1l).orElse(null);
 	}
 
+//	@GetMapping("/{id}")
+//	public Customer getCustomerById(@PathVariable("id") long id)
+//	{
+//		// TODO return the request
+//		return repo.findOne(id);
+//	}
+	
 	@PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri)
 	{
