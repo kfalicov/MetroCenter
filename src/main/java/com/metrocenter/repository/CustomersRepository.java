@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.metrocenter.domain.Customer;
 
-@Component
 public interface CustomersRepository extends CrudRepository<Customer, Long>
 {
 

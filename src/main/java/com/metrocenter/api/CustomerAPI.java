@@ -50,24 +50,25 @@ public class CustomerAPI
 	@PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri)
 	{
-		if (newCustomer.getName() == null || newCustomer.getEmail() == null)
+		if (newCustomer.getId()!=0 || newCustomer.getName() == null || newCustomer.getEmail() == null)
 		{
 			return ResponseEntity.badRequest().build();
 		}
 		newCustomer = repo.save(newCustomer);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fname}")
-				.buildAndExpand(newCustomer.getName()).toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newCustomer.getId()).toUri();
 		ResponseEntity<?> response = ResponseEntity.created(location).build();
 		return response;
 	}
 
-	@PutMapping("/{fname}")
-	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("fname") String firstName)
+	@PutMapping("/{id}")
+	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("id") long id)
 	{
-		if (newCustomer.getName() == firstName || newCustomer.getName() == null || newCustomer.getName() == null)
+		if (newCustomer.getName() == null || newCustomer.getEmail() == null)
 		{
 			return ResponseEntity.badRequest().build();
 		}
+		newCustomer.setId(id);
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
 	}
