@@ -31,14 +31,15 @@ public class CustomerAPI
 	{
 		// TODO return the request
 		//
-		return repo.getAll();
+		return repo.findAll();
 	}
 
 	@GetMapping("/{fname}")
-	public Customer getCustomer(@PathVariable("fname") String firstName)
+	public Customer getCustomer(@PathVariable("fname") long firstName)
 	{
 		// TODO return the request
-		return repo.getCustomerByName(firstName);
+		return(null);
+		/* return repo.findById(firstName); */
 	}
 
 	@PostMapping

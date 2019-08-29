@@ -13,7 +13,10 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementtaion('org.sppringframework.boot:apring-boot-starter-data-jpa')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly('org.hsqldb:hsqldb')
 }
