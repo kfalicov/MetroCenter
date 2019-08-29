@@ -64,7 +64,9 @@ public class CustomerAPI
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("id") Long id)
+
+	public ResponseEntity<?> putCustomer(@RequestBody Customer newCustomer, @PathVariable("id") long id)
+
 	{
 		if (newCustomer.getName() == null || newCustomer.getEmail() == null)
 		{

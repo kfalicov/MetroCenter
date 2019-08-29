@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="CUSTOMERS")
 public class Customer {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	long id;
@@ -28,7 +29,6 @@ public class Customer {
 		this.id = id;
 	}
 
-	
 	public String getName() {
 		return name;
 	}
