@@ -61,7 +61,7 @@ public class CustomerAPI
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newCustomer.getId()).toUri();
 		ResponseEntity<?> response = ResponseEntity.created(location).build();
-		return response;
+		return ResponseEntity.ok(newCustomer);
 	}
 
 	@PutMapping("/{fname}")
@@ -77,7 +77,7 @@ public class CustomerAPI
 			c.setName(newCustomer.getName());
 				c = repo.save(c);
 		}
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(c);
 	}
 	
 	 @DeleteMapping("/{fname}")
@@ -85,7 +85,7 @@ public class CustomerAPI
 		
 			Customer C = repo.findByName(fName);
 		           repo.deleteById(C.getId());
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok("Delete Complete");
 	       
 	    }
 //	@RequestMapping("/{fname}/{lname}")
