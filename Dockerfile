@@ -10,8 +10,8 @@ EXPOSE 8080
 
 VOLUME /tmp
 ARG LIBS=app/build/libs
-COPY --from=builder ${LIBS}/ /build/libs
-ENTRYPOINT ["java","-jar","build/libs/MetroCenter-0.0.1-SNAPSHOT.jar"]
+COPY --from=builder ${LIBS}/ /app/lib
+ENTRYPOINT ["java","-jar","./app/lib/MetroCenter-0.0.1-SNAPSHOT.jar"]
 
 #deploy the jar file to the container
 #COPY build/libs/MetroCenter-0.0.1-SNAPSHOT.jar build/libs/MetroCenter-0.0.1-SNAPSHOT.jar
