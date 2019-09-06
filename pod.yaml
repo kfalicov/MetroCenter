@@ -1,0 +1,19 @@
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: two.containers
+ spec:
+
+  containers:
+
+  - name: metrocenter
+    image: customer:v.1
+    ports:
+    - containerPort: 8080
+      
+
+  - name: auth
+    image: auth:v.1
+    ports:
+    - containerPort: 8081
+     
