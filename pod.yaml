@@ -1,19 +1,22 @@
- apiVersion: v1
- kind: Pod
+ apiVersion: extensions/v1beta1
+ kind: Deployment
  metadata:
-   name: two.containers
+   name: two-containers
  spec:
+   replicas: 1
+   template:
+     metadata:
+       labels:
+         app: web
+     spec:
+       containers:
+         - name: metrocenter
+           image: customer:v.1
+           ports:
+             - containerPort: 8080
+         - name: auth
+           image: auth:v.1
+           ports:
+             - containerPort: 8081
 
-  containers:
 
-  - name: metrocenter
-    image: customer:v.1
-    ports:
-    - containerPort: 8080
-      
-
-  - name: auth
-    image: auth:v.1
-    ports:
-    - containerPort: 8081
-     
